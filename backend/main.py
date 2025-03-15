@@ -1,13 +1,9 @@
-from flask import Flask
 from google import genai
+from flask import Flask
 
-app = Flask(__name__)
+'''client = genai.Client()
 
-
-"""
-client = genai.Client()
-
-myfile = client.files.upload(file='test.mp3') # need to do
+myfile = client.files.upload(file='test.mp3')
 
 response = client.models.generate_content(
   model='gemini-2.0-flash',
@@ -15,10 +11,13 @@ response = client.models.generate_content(
 )
 
 print(response.text)
-"""
+'''
 
+app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-app.run(threaded=True)
+def home():
+    return "<p>Hello World!</p>"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)
