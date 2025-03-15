@@ -21,3 +21,4 @@ print(response.text)
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
+app.run(threaded=True)
