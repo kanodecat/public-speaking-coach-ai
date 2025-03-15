@@ -1,0 +1,14 @@
+{
+    "video": {
+      "filename": "recorded-video.webm",
+      "size": 1024000,
+      "type": "video/webm",
+      "content": "<base64-encoded-video-content>"
+    },
+    "audio": {
+      "filename": "recorded-audio.webm",
+      "size": 512000,
+      "type": "audio/webm",
+      "content": "<base64-encoded-audio-content>"
+    }
+}

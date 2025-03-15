@@ -83,7 +83,7 @@ const VideoRecorder: React.FC = () => {
         formData.append("audio", audioFile);
 
         try {
-            const response = await fetch("http://localhost:8000/", {
+            const response = await fetch("http://localhost:8000/results", {
                 method: "POST",
                 body: formData,
             });
