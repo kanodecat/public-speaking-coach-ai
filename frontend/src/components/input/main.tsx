@@ -1,4 +1,6 @@
 "use client";
+import { FFmpeg } from '@ffmpeg/ffmpeg';
+
 
 import { useState, useRef } from "react";
 
@@ -77,13 +79,15 @@ const VideoRecorder: React.FC = () => {
         // Convert Blobs to Files
         const videoFile = new File([recordingBlob], "recorded-video.webm", { type: "video/webm" });
         const audioFile = new File([audioBlob], "recorded-audio.webm", { type: "audio/webm" });
+       
+
 
         const formData = new FormData();
         formData.append("video", videoFile);
         formData.append("audio", audioFile);
 
         try {
-            const response = await fetch("http://localhost:8000/results", {
+            const response = await fetch("http://localhost:4000/results", {
                 method: "POST",
                 body: formData,
             });
