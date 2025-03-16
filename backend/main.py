@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from google.genai import types
 from google import genai
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 
 load_dotenv()
@@ -14,7 +15,9 @@ client = genai.Client(api_key=api_key)
 
 app = Flask(__name__)
 
-@app.route("/")
+CORS(app)
+
+@app.route("/results", methods=["POST"])
 def home():
     with open('test.mp3', 'rb') as f:
       image_bytes = f.read()
@@ -67,9 +70,33 @@ def home():
       ]
     )
 
+    sigma = {
+      "score": 86,
+      "metrics": {
+        "filler_words": {
+          "count": 2,
+          "status": "pass",
+          "message": "You got less than 3 filler words"
+        },
+        "tone": {
+          "status": "fail",
+          "message": "Your tone was too monotone"
+        },
+        "speed": {
+          "status": "fail",
+          "message": "You talked too fast",
+          "words_per_minute": 180
+        },
+        "volume": {
+          "status": "pass",
+          "message": "You talked loud enough"
+        }
+      }
+    }
+
     print(response)
 
-    return jsonify(f"{response}")
+    return jsonify(sigma)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

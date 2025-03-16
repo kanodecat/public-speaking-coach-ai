@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev-next\" \"npm run dev-json\"",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "dev-next": "next dev --turbopack",
-    "dev-json": "json-server --watch apitesting/database/db.json --port 4000"
+    "lint": "next lint"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
