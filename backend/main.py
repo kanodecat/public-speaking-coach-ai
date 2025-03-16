@@ -4,7 +4,7 @@ from google import genai
 from dotenv import load_dotenv
 from flask_cors import CORS
 import os
-import moviepy.editor as mp
+import moviepy as mp
 
 load_dotenv()
 
@@ -18,10 +18,10 @@ app = Flask(__name__)
 
 CORS(app)
 
-@app.route("/results", methods=["GET"])
+@app.route("/results", methods=["POST", "GET"])
 def home():
     with open('test.mp3', 'rb') as f: # fix this I need to use webm
-        clip = mp.VideoFileClip(f)
+        clip = mp.editor.VideoFileClip(f)
         image_bytes = clip.read()
 
     response = client.models.generate_content(
