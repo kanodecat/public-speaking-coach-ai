@@ -1,7 +1,23 @@
+"use client"
 import React from "react";
 import { FiX, FiCheck } from "react-icons/fi";
+import { useSearchParams } from 'next/navigation';
+
 
 export default function page() {
+  const searchParams = useSearchParams();
+  const score = searchParams.get('score');
+  const fillerCount = searchParams.get('filler_count');
+  const fillerMessage = searchParams.get('filler_message');
+  const fillerStatus = searchParams.get('filler_status');
+  const speedMessage = searchParams.get('speed_message');
+  const speedStatus = searchParams.get('speed_status');
+  const wpm = searchParams.get('wpm');
+  const toneMessage = searchParams.get('tone_message');
+  const toneStatus = searchParams.get('tone_status');
+  const volumeMessage = searchParams.get('volume_message');
+  const volumeStatus = searchParams.get('volume_status');
+
   return (
     <div className="h-screen bg-gray-100">
       <div>
@@ -11,9 +27,9 @@ export default function page() {
         <div className="bg-white p-10 rounded-lg shadow-lg flex gap-10 place-items-center">
           {/* Score Section */}
           <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold mb-4">Your Score</h2>
+            <h2 className="text-lg font-semibold mb-4">Your score is: </h2>
             <div className="w-32 h-32 flex items-center justify-center text-4xl font-bold bg-gray-200 rounded-full">
-              86
+            {score}
             </div>
           </div>
 
@@ -24,25 +40,25 @@ export default function page() {
                 <span className="w-6 h-6 flex items-center justify-center bg-green-500 text-white rounded-full mr-3">
                   <FiCheck />
                 </span>
-                You got less than 3 filler words
+                You got {fillerCount} filler words
               </li>
               <li className="flex items-center bg-white rounded-lg shadow p-3">
                 <span className="w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full mr-3">
                   <FiX />
                 </span>
-                Your tone was too monotone
+                {toneMessage}
               </li>
               <li className="flex items-center bg-white rounded-lg shadow p-3">
                 <span className="w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full mr-3">
                   <FiX />
                 </span>
-                You talked too fast
+                {speedMessage}
               </li>
               <li className="flex items-center bg-white rounded-lg shadow p-3">
                 <span className="w-6 h-6 flex items-center justify-center bg-green-500 text-white rounded-full mr-3">
                   <FiCheck />
                 </span>
-                You talked loud enough
+                {volumeMessage}
               </li>
             </ul>
           </div>

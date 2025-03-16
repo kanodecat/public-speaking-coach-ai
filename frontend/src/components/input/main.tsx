@@ -1,9 +1,11 @@
 "use client";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { useRouter } from "next/navigation";
 
 import { useState, useRef } from "react";
 
 const VideoRecorder: React.FC = () => {
+  const router = useRouter();
   const previewRef = useRef<HTMLVideoElement | null>(null);
   const recordingRef = useRef<HTMLVideoElement | null>(null);
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
@@ -13,7 +15,7 @@ const VideoRecorder: React.FC = () => {
   const [audioRecorder, setAudioRecorder] = useState<MediaRecorder | null>(
     null
   ); // NEW: audio recorder
-  const recordingTimeMS = 5000;
+  const recordingTimeMS = 20000;
 
   const startRecording = async () => {
     try {
@@ -97,8 +99,25 @@ const VideoRecorder: React.FC = () => {
       method: "POST",
       body: formData,
     });
+    // This is the data to route
+    
+    let finalData = await response.json();
+    console.log(  );
+    // finalData.score
+    // finalData.metrics.filler_words.count
+    // finalData.metrics.filler_words.message 
+    // finalData.metrics.filler_words.status
+    // finalData.metrics.speed.message
+    // finalData.metrics.speed.status
+    // finalData.metrics.speed.word_per_minute
+    // finalData.metrics.tone.message
+    // finalData.metrics.tone.status
+    // finalData.metrics.volume.message
+    // finalData.metrics.volume.status
+    router.push(`/score?score=${finalData.score}&filler_count=${finalData.metrics.filler_words.count}&filler_message=${finalData.metrics.filler_words.message}&filler_status=${finalData.metrics.filler_words.status}&speed_message=${finalData.metrics.speed.message}&speed_status=${finalData.metrics.speed.status}&wpm=${finalData.metrics.speed.word_per_minute}&tone_message=${finalData.metrics.tone.message}&tone_status=${finalData.metrics.tone.status}&volume_message=${finalData.metrics.volume.message}&volume_status=${finalData.metrics.volume.status}`);
 
-    console.log(await response.json());
+    // router.push(`/score?id=${finalData.id}&score=${finalData.score}&status=${finalData.status}`);
+
   };
 
   const stopRecording = () => {
